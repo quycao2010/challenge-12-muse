@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :show, :destory]
-  before_action :check_login, only: [:edit, :update, :destory, :new, :create]
+  before_action :check_login, only: [:edit, :update, :destory, :new, :create, :like, :dislike]
 
   def index
     @posts = Post.all
@@ -8,6 +8,7 @@ class PostsController < ApplicationController
   
   def show
     @post = Post.find(params[:id])
+    @post_random = Post.where.not(id: @post).order("RANDOM()").first
   end
   
 
@@ -53,6 +54,20 @@ class PostsController < ApplicationController
     @post.destroy
     redirect_to root_path
   end
+
+  def like
+    @post = Post.find(params[:id])
+    @post.upvote_by current_user
+    redirect_to :back
+  end
+  
+  def dislike
+    @post = Post.find(params[:id])
+    @post.downvote_by current_user
+    redirect_to :back
+  end
+  
+  
   
   private
 
@@ -66,7 +81,7 @@ class PostsController < ApplicationController
 
   def check_login
     unless logged_in?
-      redirect_to login_path
+      redirect_to login_path,notice: "You have to login"
     end
   end
   

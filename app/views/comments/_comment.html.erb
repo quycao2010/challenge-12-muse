@@ -1,0 +1,8 @@
+<div class="comment clearfix">
+  <div class="comment_content">
+    <p><strong><%= comment.user.name %></strong></p>
+    <p class="comment_body"><%= comment.content %></p>
+    <p class="comment_time"><%= time_ago_in_words(comment.created_at) %>Ago</p>
+  </div>
+  <p><%=link_to "Delete", comment_path(comment), method: :delete, class: "button pull-right", data: {confirm: "Are you sure"} %></p>
+</div>
