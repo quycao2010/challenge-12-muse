@@ -5,10 +5,28 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 </head>
 <body>
-
-<%= yield %>
-
+<header>
+  <div class="wrapper clearfix">
+      <%= link_to "Muse", root_path, id: "logo" %>
+      <nav>
+        <% if logged_in? %>
+          <%= link_to "Add new inspiration", new_post_path, class:"button"  %>
+            <%= link_to current_user.name, edit_user_path(current_user)%>
+            <%= link_to "Sign Out", logout_path%> 
+          <% else %> 
+            <%= link_to "Sign Up", signup_path %>
+            <%= link_to "Sign In", login_path, class:"button" %>
+          <% end %>
+      </nav>
+  </div>
+</header>
+<div class="wrapper">
+  <%= yield %>
+</div>
 </body>
 </html>

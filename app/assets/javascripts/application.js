@@ -15,3 +15,6 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+setTimeout(function() {
+    document.getElementById('notice').innerHTML = ''
+}, 3000);
